@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth bg-gray-900">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manufacturing Portfolio - Abhinash Pandit</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Import Google Font (Inter for body, and Lora for headings) -->
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Lora:wght@500;600;700&display=swap');
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #030712; /* Rich dark blue/black (gray-950) */
+            color: #e5e7eb; /* gray-200 for base text */
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Lora', serif;
+        }
+
+        /* Hero text shadow */
+        .hero-text-shadow {
+            text-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25);
+        }
+        
+        /* Base styles for all unit sections */
+        .unit-section {
+            padding-top: 6rem;
+            padding-bottom: 6rem;
+            padding-left: 1.5rem;
+            padding-right: 1.5rem;
+        }
+        .unit-card {
+            background-color: rgba(0, 0, 0, 0.5); /* Darker semi-transparent black for more contrast */
+            border-radius: 0.5rem;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.15); /* Brighter border */
+        }
+        .unit-card-content {
+            padding: 2rem 2.5rem;
+        }
+        .unit-card-content h3 {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+        }
+        .unit-card-content h4 {
+            font-size: 1.25rem; /* 20px */
+            font-weight: 700;
+            padding-bottom: 4px;
+            margin-bottom: 0.75rem;
+        }
+        .unit-card-content p, .unit-card-content ul, .unit-card-content dl {
+            font-size: 1.05rem;
+            line-height: 1.8;
+        }
+        .unit-card-content ul {
+            list-style-type: disc;
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .unit-card-content li { margin-bottom: 0.5rem; }
+        .unit-card-content dt { font-weight: 700; }
+        .unit-card-content dd {
+            margin-left: 1.5rem;
+            margin-bottom: 0.75rem;
+            padding-left: 0.75rem;
+            border-left-width: 3px;
+        }
+        .image-container {
+            background-color: rgba(0, 0, 0, 0.3);
+            padding: 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- NEW HUE-ROTATE ANIMATION --- */
+        @keyframes colorCycle {
+          0% { filter: hue-rotate(0deg); }
+          100% { filter: hue-rotate(360deg); }
+        }
+
+        .animated-hue {
+            /* This animation is applied to the main section backgrounds */
+            animation: colorCycle 20s linear infinite;
+        }
+
+        /* --- THEME 1: Casting (Molten Bronze) - NO BOLD RED --- */
+        #unit1 {
+            background: linear-gradient(-45deg, #f59e0b, #facc15, #fbbf24, #d97706); /* yellow, amber, orange */
+        }
+        .theme-unit1 h3, .theme-unit1 dt { color: white; }
+        .theme-unit1 h4 { color: #fef08a; border-bottom: 1px solid #fcd34d; } /* yellow-200, amber-300 border */
+        .theme-unit1, .theme-unit1 p, .theme-unit1 li { color: #fef3c7; } /* yellow-100 */
+        .theme-unit1 dd { border-color: #fcd34d; } /* amber-300 */
+        .theme-unit1 .unit-card { background-color: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+
+        /* --- THEME 2: Cutting Tools (Precision Blue) --- */
+        #unit2 {
+            background: linear-gradient(-45deg, #1d4ed8, #2563eb, #3b82f6, #67e8f9); /* blue, cyan */
+        }
+        .theme-unit2 h3, .theme-unit2 dt { color: white; }
+        .theme-unit2 h4 { color: #67e8f9; border-bottom: 1px solid #7dd3fc; } /* cyan-300, sky-300 border */
+        .theme-unit2, .theme-unit2 p, .theme-unit2 li { color: #dbeafe; } /* blue-100 */
+        .theme-unit2 dd { border-color: #7dd3fc; } /* sky-300 */
+        .theme-unit2 .unit-card { background-color: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+
+        /* --- THEME 3: Laser Welding (High-Tech Purple) --- */
+        #unit3 {
+            background: linear-gradient(-45deg, #512DA8, #7b2cbf, #c026d3, #f0abfc); /* purple, fuchsia */
+        }
+        .theme-unit3 h3, .theme-unit3 dt { color: white; }
+        .theme-unit3 h4 { color: #f0abfc; border-bottom: 1px solid #d8b4fe; } /* fuchsia-300, purple-300 border */
+        .theme-unit3, .theme-unit3 p, .theme-unit3 li { color: #e9d5ff; } /* purple-100 */
+        .theme-unit3 dd { border-color: #d8b4fe; } /* purple-300 */
+        .theme-unit3 .unit-card { background-color: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+
+        /* --- THEME 4: Metrology (Analytical Green) --- */
+        #unit4 {
+            background: linear-gradient(-45deg, #047857, #059669, #10b981, #6ee7b7); /* emerald, green */
+        }
+        .theme-unit4 h3, .theme-unit4 dt { color: white; }
+        .theme-unit4 h4 { color: #a7f3d0; border-bottom: 1px solid #6ee7b7; } /* emerald-200, emerald-300 border */
+        .theme-unit4, .theme-unit4 p, .theme-unit4 li { color: #d1fae5; } /* emerald-100 */
+        .theme-unit4 dd { border-color: #6ee7b7; } /* emerald-300 */
+        .theme-unit4 .unit-card { background-color: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.2); }
+
+        /* --- THEME 5: Light Theories (Spectrum) --- */
+        #unit5 {
+            background: linear-gradient(-45deg, #a21caf, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6); /* Full spectrum */
+        }
+        .theme-unit5 h3, .theme-unit5 dt { color: white; text-shadow: 1px 1px 2px rgba(0,0,0,0.5); }
+        .theme-unit5 h4 { color: white; border-bottom: 1px solid rgba(255,255,255,0.5); text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+        .theme-unit5, .theme-unit5 p, .theme-unit5 li { color: #e5e7eb; text-shadow: 1px 1px 1px rgba(0,0,0,0.2); } /* gray-200 */
+        .theme-unit5 dd { border-color: rgba(255,255,255,0.5); }
+        .theme-unit5 .unit-card { background-color: rgba(0, 0, 0, 0.5); border-color: rgba(255, 255, 255, 0.3); } /* Darker card for legibility */
+
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Header & Navigation Bar (Dark Glass) -->
+    <header class="bg-slate-900/80 backdrop-blur-md shadow-sm fixed w-full top-0 left-0 z-50 h-20 flex items-center border-b border-slate-700">
+        <nav class="container mx-auto px-6 flex justify-between items-center">
+            <!-- Site Title -->
+            <h1 class="text-xl md:text-2xl font-bold text-white">
+                Manufacturing Portfolio
+            </h1>
+            
+            <!-- Mobile Menu Button -->
+            <button id="menu-btn" class="md:hidden block text-gray-300 hover:text-cyan-400">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#unit1" class="text-gray-300 hover:text-cyan-400 transition-colors duration-200">Casting</a>
+                <a href="#unit2" class="text-gray-300 hover:text-cyan-400 transition-colors duration-200">Cutting Tools</a>
+                <a href="#unit3" class="text-gray-300 hover:text-cyan-400 transition-colors duration-200">Welding</a>
+                <a href="#unit4" class="text-gray-300 hover:text-cyan-400 transition-colors duration-200">Metrology</a>
+                <a href="#unit5" class="text-gray-300 hover:text-cyan-400 transition-colors duration-200">Light Theories</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu (Dark) -->
+    <div id="mobile-menu" class="hidden md:hidden bg-slate-900 shadow-lg fixed top-20 left-0 w-full z-40 border-b border-slate-700">
+        <a href="#unit1" class="block px-6 py-4 text-gray-200 hover:bg-slate-800 border-b border-slate-700">Casting</a>
+        <a href="#unit2" class="block px-6 py-4 text-gray-200 hover:bg-slate-800 border-b border-slate-700">Cutting Tools</a>
+        <a href="#unit3" class="block px-6 py-4 text-gray-200 hover:bg-slate-800 border-b border-slate-700">Welding</a>
+        <a href="#unit4" class="block px-6 py-4 text-gray-200 hover:bg-slate-800 border-b border-slate-700">Metrology</a>
+        <a href="#unit5" class="block px-6 py-4 text-gray-200 hover:bg-slate-800">Light Theories</a>
+    </div>
+
+    <!-- Main Content Area -->
+    <main>
+        <!-- Hero Section / Title Page -->
+        <div class="pt-20 bg-gradient-to-r from-blue-700 to-indigo-900 text-white">
+            <div class="container mx-auto px-6 py-24 lg:py-32">
+                <div class="max-w-4xl">
+                    <h2 class="text-base font-semibold uppercase tracking-wider text-blue-200">Department of Mechanical Engineering</h2>
+                    <h3 class="text-4xl lg:text-5xl font-bold mt-4 mb-8 hero-text-shadow">Manufacturing Processes & Metrology Portfolio</h3>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-6 text-lg text-blue-100">
+                        <div>
+                            <p class="font-semibold text-white">Submitted By:</p>
+                            <p>Abhinash Pandit</p>
+                            <p>RA2411002010087</p>
+                        </div>
+                        <div>
+                            <p class="font-semibold text-white">Submitted To:</p>
+                            <p>Dr. S Murali</p>
+                            <p>SRMIST, Kattankalathur, Chennai 603203</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section Container -->
+        <div>
+            <!-- Unit 1: Casting -->
+            <section id="unit1" class="unit-section theme-unit1 animated-hue">
+                <div class="container mx-auto">
+                    <div class="unit-card">
+                        <div class="unit-card-content">
+                            <h3>Unit 1: A Deep Dive into Casting Processes</h3>
+                            
+                            <!-- Image (UPDATED) -->
+                            <div class="image-container mb-8">
+                                <img id="img-unit1" class="w-full h-auto max-h-[500px] object-contain rounded-lg" 
+                                     src="unit1.jpg" 
+                                     alt="Molten metal being poured into casting molds in a foundry"
+                                     onerror="this.src='unit1.jpg'">
+                            </div>
+
+                            <!-- Expanded Content Blocks -->
+                            <div class="content-block">
+                                <h4>1.1 Core Concept and Definition</h4>
+                                <p>Casting is a foundational manufacturing (or "forming") process that has been used for millennia. In its most basic form, casting involves:</p>
+                                <ul>
+                                    <li><strong>Creating a Mold:</strong> A mold is built to contain a hollow cavity of a desired geometric shape.</li>
+                                    <li><strong>Liquefying Material:</strong> A material, most commonly metal or plastic, is heated until it becomes a liquid.</li>
+                                    <li><strong>Pouring:</strong> The liquid material is poured into the mold's cavity.</li>
+                                    <li><strong>Solidification:</strong> The mold and its contents are allowed to cool, causing the liquid to solidify, taking the shape of the cavity.</li>
+                                    <li><strong>Ejection & Finishing:</strong> The solidified part, now called the "casting," is extracted from the mold. It then often undergoes secondary "finishing" processes like cleaning, trimming, or machining.</li>
+                                </ul>
+                                <p>Casting is incredibly versatile, capable of producing parts that are extremely large (like a ship's propeller) or small and intricate (like a zipper tooth). It is ideal for creating complex geometric shapes, especially those with internal cavities, which would be difficult or impossible to fabricate by other methods.</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>1.2 The Universal Step-by-Step Casting Process</h4>
+                                <ol class="list-decimal list-inside space-y-2">
+                                    <li><strong>Patternmaking:</strong> A "pattern" (a replica of the final part) is created, typically from wood, wax, or plastic. It must account for material shrinkage.</li>
+                                    <li><strong>Molding:</strong> The mold is created around the pattern. This can be "expendable" (like sand) or "permanent" (like metal).</li>
+                                    <li><strong>Core-Making (if needed):</strong> A separate "core" is placed inside the mold cavity to create hollow sections.</li>
+                                    <li><strong>Melting & Pouring:</strong> The material is melted in a furnace and poured into the mold's gating system.</li>
+                                    <li><strong>Solidification:</strong> The molten metal cools and changes from liquid to solid, taking the mold's shape.</li>
+                                    <li><strong>Extraction (Shakeout/Ejection):</strong> The solidified part is removed from the mold.</li>
+                                    <li><strong>Finishing (Fettling):</strong> The casting is cleaned, and excess material (from runners and flash) is cut or ground off.</li>
+                                </ol>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>1.3 In-Depth: Common Casting Techniques</h4>
+                                <dl>
+                                    <dt>A. Sand Casting</dt>
+                                    <dd>The most common expendable-mold technique. A pattern is pressed into a sand-filled box (cope and drag). The mold is destroyed to retrieve the part.
+                                        <ul>
+                                            <li><strong>Pros:</strong> Low tooling cost, ideal for large parts, can be used for any metal.</li>
+                                            <li><strong>Cons:</strong> Poor surface finish and dimensional accuracy.</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>B. Investment Casting (Lost-Wax Casting)</dt>
+                                    <dd>A wax replica is dipped in ceramic slurry to build a hard shell. The wax is melted out ("lost"), and metal is poured in.
+                                        <ul>
+                                            <li><strong>Pros:</strong> Excellent surface finish, can create extremely complex shapes (e.g., turbine blades), high accuracy.</li>
+                                            <li><strong>Cons:</strong> High labor/material cost, time-consuming.</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>C. Die Casting</dt>
+                                    <dd>A permanent-mold technique where molten metal is forced under high pressure into a steel die.
+                                        <ul>
+                                            <li><strong>Pros:</strong> Extremely fast, excellent surface finish, ideal for high-volume production.</li>
+                                            <li><strong>Cons:</strong> Very high tooling cost, limited to non-ferrous metals (like aluminum or zinc).</li>
+                                        </ul>
+                                    </dd>
+                                </dl>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 2: Cutting Tool -->
+            <section id="unit2" class="unit-section theme-unit2 animated-hue">
+                <div class="container mx-auto">
+                    <div class="unit-card">
+                        <div class="unit-card-content">
+                            <h3>Unit 2: A Deep Dive into the Single Point Cutting Tool (SPCTT)</h3>
+
+                            <!-- Image (UPDATED) -->
+                            <div class="image-container mb-8">
+                                <img id="img-unit2" class="w-full h-auto max-h-[500px] object-contain rounded-lg" 
+                                     src="1000010647.png" 
+                                     alt="Nomenclature diagram of a single point cutting tool angles and faces"
+                                     onerror="this.src='https://placehold.co/800x400/1d4ed8/dbeafe?text=SPCTT+Diagram'">
+                            </div>
+
+                            <!-- Expanded Content Blocks -->
+                            <div class="content-block">
+                                <h4>2.1 Core Concept and Application</h4>
+                                <p>A Single Point Cutting Tool (SPCTT) is a tool used in machining operations that has a single cutting edge at its tip. It is the fundamental tool for material removal and is most commonly associated with operations on a <strong>lathe</strong> (for turning, facing, and boring), <strong>shaper</strong>, or <strong>planer</strong> (for creating flat surfaces).</p>
+                                <p>The science of machining is based on the geometry of this single point. Its shape, material, and orientation determine the surface finish, power required, heat generated, and tool lifespan.</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>2.3 The "Why": Understanding the Critical Tool Angles</h4>
+                                <dl>
+                                    <dt>A. Rake Angles (Controls Chip Formation)</dt>
+                                    <dd>This is the slope of the tool's face.
+                                        <ul>
+                                            <li><strong>Positive Rake (+):</strong> A "sharp" configuration. Requires less force, generates less heat, and is ideal for soft materials (aluminum, mild steel).</li>
+                                            <li><strong>Negative Rake (-):</strong> An extremely strong, robust tool tip. Used for hard materials (cast iron) or "interrupted" cuts. Requires more power.</li>
+                                            <li><strong>Zero Rake (0):</strong> Easy to manufacture, often used for brass.</li>
+                                        </ul>
+                                    </dd>
+                                    <dt>B. Relief/Clearance Angles (Prevents Friction)</dt>
+                                    <dd>The angle of the flank away from the workpiece. Its purpose is critical: to ensure that <strong>only the cutting edge touches the workpiece.</strong> Without relief, the entire flank would rub, generating intense friction and heat, destroying the tool and the part.</dd>
+                                </dl>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>2.4 Tool Materials: From Steel to Diamond</h4>
+                                <ul>
+                                    <li><strong>High-Speed Steel (HSS):</strong> Tough (resists chipping) and cheap, but loses hardness at lower temperatures (600°C). Good for general use and interrupted cuts.</li>
+                                    <li><strong>Cemented Carbides (Tungsten Carbide):</strong> The workhorse of modern manufacturing. Sold as replaceable "inserts." Retain hardness at high temperatures (1000°C+) and allow for cutting speeds 3-5 times faster than HSS.</li>
+                                    <li><strong>Ceramics & cBN:</strong> Extremely hard materials used for finishing hardened steels.</li>
+                                    <li><strong>Diamond:</strong> The hardest material, used for non-ferrous materials like aluminum and composites.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 3: Laser Welding -->
+            <section id="unit3" class="unit-section theme-unit3 animated-hue">
+                <div class="container mx-auto">
+                    <div class="unit-card">
+                        <div class="unit-card-content">
+                            <h3>Unit 3: A Deep Dive into Laser Beam Welding (LBM)</h3>
+
+                            <!-- Image (Placeholder) -->
+                            <div class="image-container mb-8">
+                                <img id="img-unit3" class="w-full h-auto max-h-[500px] object-contain rounded-lg" 
+                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Laser_welding.svg/800px-Laser_welding.svg.png" 
+                                     alt="Diagram of laser beam welding process"
+                                     onerror="this.src='https://placehold.co/800x400/311B92/e9d5ff?text=Laser+Welding+Diagram'">
+                            </div>
+
+                            <!-- Expanded Content Blocks -->
+                            <div class="content-block">
+                                <h4>3.1 Core Concept: What is a LASER?</h4>
+                                <p><strong>LASER</strong> stands for <strong>Light Amplification by Stimulated Emission of Radiation.</strong> Unlike normal light, a laser beam is:</p>
+                                <ul>
+                                    <li><strong>Monochromatic:</strong> A single, pure wavelength (color).</li>
+                                    <li><strong>Coherent:</strong> All light waves are "in-step" (crests and troughs aligned).</li>
+                                    <li><strong>Collimated:</strong> A narrow, parallel beam that doesn't spread out.</li>
+                                </ul>
+                                <p>This "organized" light can be focused into a tiny spot with a massive <strong>energy density</strong>, which is used to melt and fuse materials.</p>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>3.3 The Two Modes of Laser Welding</h4>
+                                <dl>
+                                    <dt>A. Conduction Mode Welding</dt>
+                                    <dd>Uses lower power density. The laser heats the surface, and heat "conducts" into the part. This creates a shallow, wide, and smooth weld, ideal for sealing electronic enclosures.</dd>
+                                    <dt>B. Keyhole Mode Welding (Deep Penetration)</dt>
+                                    <dd>Uses very high power density. The laser instantly <strong>vaporizes</strong> the metal, creating a deep, narrow cavity called a <strong>"keyhole."</strong> Molten metal flows around this cavity and solidifies behind it, creating a deep, narrow, and strong weld. This is used for structural welding in cars and aerospace.</dd>
+                                </dl>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>3.4 Advantages, Disadvantages, and Applications</h4>
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 pt-4">
+                                    <div>
+                                        <h5 class="font-semibold text-lg text-white">Advantages</h5>
+                                        <ul>
+                                            <li>High precision & low distortion (small Heat Affected Zone).</li>
+                                            <li>Very high welding speed.</li>
+                                            <li>Non-contact process (no tool wear).</li>
+                                            <li>Easily automated.</li>
+                                        </ul>
+                                    </div>
+                                    <div>
+                                        <h5 class="font-semibold text-lg text-white">Disadvantages</h5>
+                                        <ul>
+                                            <li>High initial equipment cost.</li>
+                                            <li>Reflective materials (aluminum, copper) are difficult to weld.</li>
+                                            <li>Requires very tight and precise joint fit-up.</li>
+                                            <li>Serious safety hazards (eye and skin).</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 4: Accuracy vs. Precision -->
+            <section id="unit4" class="unit-section theme-unit4 animated-hue">
+                <div class="container mx-auto">
+                    <div class="unit-card">
+                        <div class="unit-card-content">
+                            <h3>Unit 4: A Deep Dive into Accuracy vs. Precision</h3>
+                            
+                            <!-- Image (Placeholder) -->
+                            <div class="image-container mb-8">
+                                <img id="img-unit4" class="w-full h-auto max-h-[500px] object-contain rounded-lg" 
+                                     src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5d/Accuracy_and_precision.svg/800px-Accuracy_and_precision.svg.png" 
+                                     alt="Target diagram showing accuracy and precision"
+                                     onerror="this.src='https://placehold.co/800x400/047857/d1fae5?text=Accuracy+vs+Precision+Target'">
+                            </div>
+                            
+                            <!-- Expanded Content Blocks -->
+                            <div class="content-block">
+                                <h4>4.1 Core Concepts in Metrology</h4>
+                                <p><strong>Metrology</strong> is the scientific study of measurement. Within this science, <strong>Accuracy</strong> and <strong>Precision</strong> are the two most critical—and most often confused—concepts. They are <strong>not</strong> the same.</p>
+                                <p>The "target analogy" is the classic way to explain this:</p>
+                                <ul>
+                                    <li><strong>Accurate AND Precise (Ideal):</strong> All shots are tightly clustered in the center.</li>
+                                    <li><strong>Precise but NOT Accurate:</strong> All shots are tightly clustered, but off-target.</li>
+                                    <li><strong>Accurate but NOT Precise:</strong> Shots are scattered, but their average is the center.</li>
+                                    <li><strong>Neither:</strong> Shots are scattered and off-target.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>4.2 In-Depth: ACCURACY (Closeness to "True")</h4>
+                                <ul>
+                                    <li><strong>Definition:</strong> The closeness between a measured value and the <strong>true, correct, or accepted standard value.</strong></li>
+                                    <li><strong>What it Relates To:</strong> Accuracy is a measure of <strong>Systematic Error</strong> (or <strong>Bias</strong>). This is a repeatable, consistent error in one direction.</li>
+                                    <li><strong>Example:</strong> A scale that consistently reads 0.02 kg high is <strong>inaccurate</strong> but may be very <strong>precise</strong>.</li>
+                                    <li><strong>How to Fix It:</strong> Inaccuracy is fixed by <strong>Calibration</strong>—adjusting the instrument against a known standard.</li>
+                                </ul>
+                            </div>
+
+                            <div class="content-block">
+                                <h4>4.3 In-Depth: PRECISION (Closeness to Each Other)</h4>
+                                <ul>
+                                    <li><strong>Definition:</strong> The degree to which repeated measurements, under unchanged conditions, show the same results. It is a measure of <strong>repeatability.</strong></li>
+                                    <li><strong>What it Relates To:</strong> Precision is a measure of <strong>Random Error</strong>. These are unpredictable, small-scale variations that cause measurements to scatter.</li>
+                                    <li><strong>Example:</strong> A scale that gives readings of "1.01 kg", "0.98 kg", and "1.00 kg" for the same weight is <strong>imprecise</strong>, even if its average is correct.</li>
+                                    <li><strong>How to Fix It:</strong> Imprecision (random error) cannot be "calibrated." It can only be <strong>reduced</strong> by using higher-quality instruments, controlling the environment, or averaging multiple measurements.</li>
+                                In(Note: The `src` path for the image in Unit 2 is still `1000010647.png`)
+                                <h4>4.3 In-Depth: PRECISION (Closeness to Each Other)</h4>
+                                <ul>
+                                    <li><strong>Definition:</strong> The degree to which repeated measurements, under unchanged conditions, show the same results. It is a measure of <strong>repeatability.</strong></li>
+                                    <li><strong>What it Relates To:</strong> Precision is a measure of <strong>Random Error</strong>. These are unpredictable, small-scale variations that cause measurements to scatter.</li>
+                                    <li><strong>Example:</strong> A scale that gives readings of "1.01 kg", "0.98 kg", and "1.00 kg" for the same weight is <strong>imprecise</strong>, even if its average is correct.</li>
+                                    <li><strong>How to Fix It:</strong> Imprecision (random error) cannot be "calibrated." It can only be <strong>reduced</strong> by using higher-quality instruments, controlling the environment, or averaging multiple measurements.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Unit 5: Theories of Light -->
+            <section id="unit5" class="unit-section theme-unit5 animated-hue">
+                <div class="container mx-auto">
+                    <div class="unit-card">
+                        <div class="unit-card-content">
+                            <h3>Unit 5: A Deep Dive into the Theories of Light</h3>
+                            
+                            <!-- Split Layout for Theories -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                                <!-- Corpuscular Theory -->
+                                <div class="content-block border border-gray-500 rounded-lg p-6">
+                                    <h4 class="text-center">Theory 1: The Corpuscular (Particle) Theory</h4>
+                                    <div class="image-container my-4">
+                                        <img id="img-unit5-1" class="w-full h-48 object-contain rounded-md"
+                                             src="httpsS://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Newtons-corpuscles-relection-a-la-billiards.png/800px-Newtons-corpuscles-relection-a-la-billiards.png"
+                                             alt="Newton's particle theory of light reflection"
+                                             onerror="this.src='https://placehold.co/400x200/000000/ffffff?text=Particle+Theory'">
+                                    </div>
+                                    <p><strong>Proponent:</strong> Sir Isaac Newton</p>
+                                    <p><strong>Core Idea:</strong> Light consists of a stream of tiny, massless particles called "corpuscles" that travel in straight lines.</p>
+                                    <p><strong>Explained:</strong> Reflection (like a bouncing ball), Rectilinear Propagation (sharp shadows).</p>
+                                    <p><strong>Failed to Explain:</strong> Diffraction (bending around corners), Interference (wave patterns).</p>
+                                </div>
+                                <!-- Wave Theory -->
+                                <div class="content-block border border-gray-500 rounded-lg p-6">
+                                    <h4 class="text-center">Theory 2: The Wave Theory</h4>
+                                    <div class="image-container my-4">
+                                        <img id="img-unit5-2" class="w-full h-48 object-contain rounded-md"
+                                             src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Huygens-Fermat-Principle.svg/800px-Huygens-Fermat-Principle.svg.png"
+                                             alt="Huygens' wave theory principle"
+                                             onerror="this.src='https://placehold.co/400x200/000000/ffffff?text=Wave+Theory'">
+                                    </div>
+                                    <p><strong>Proponent:</strong> Christiaan Huygens</p>
+                                    <p><strong>Core Idea:</strong> Light propagates as a wave through a hypothetical medium called the "luminiferous ether." (Proved by Thomas Young's double-slit experiment).</p>
+                                    <p><strong>Explained:</strong> Reflection, Refraction, and critically, Diffraction and Interference.</p>
+                                    <p><strong>Failed to Explain:</strong> The Photoelectric Effect.</p>
+                                </div>
+                            </div>
+                            
+                            <!-- Resolution -->
+                            <div class="content-block pt-8 border-t border-gray-500">
+                                <h4>The Crisis and Resolution: Quantum Mechanics</h4>
+                                <p>The **Photoelectric Effect** was the wave theory's downfall. It showed that light energy is *not* continuous, but comes in discrete packets (quanta).</p>
+                                <p>Albert Einstein solved this in 1905 by proposing that light is a stream of energy packets called <strong>"photons."</strong> The energy of a photon is proportional to its frequency (its color). This explained why a dim blue light (high-energy photons) could knock electrons loose from a metal, while a bright red light (low-energy photons) could not.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-gray-400 py-16 border-t border-slate-700">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Abhinash Pandit (RA2411002010087). All rights reserved.</p>
+            <p>SRMIST, Kattankalathur, Chennai 603203</p>
+        </div>
+    </footer>
+
+    <!-- JavaScript for Mobile Menu -->
+    <script>
+        // Get elements
+        const menuBtn = document.getElementById('menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const menuLinks = mobileMenu.getElementsByTagName('a');
+
+        // Toggle menu
+        menuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Hide menu when a link is clicked (for smooth scrolling)
+        for (let link of menuLinks) {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        }
+    </script>
+
+</body>
+</html>
